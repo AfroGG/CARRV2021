@@ -14,10 +14,11 @@ which is extensively used in the authentication process to exchange private keys
 inside a secure communication channel as Advanced Encryption Standard (AES).
 
 
-Furthermore, quantum-resistant cryptography algorithms (PQC) have been developed in recent years 
-with the rise of quantum computing research. Some of the survivors of the third round of the NIST's PQC competition 
-use $GF(2^m)$ arithmetic (Classic McEliece, Rainbow, HQC, and GeMSS). These algorithms require high computing power 
-to generate the keys and encrypt/decrypt the data, becoming the main bottleneck in processing for small devices.
+Furthermore, quantum-resistant cryptography algorithms (PQC) \cite{8791343} have been developed in recent years 
+with the rise of quantum computing research. Some of the survivors of the third round of the NIST's PQC competition \cite{moody2016post} 
+use $GF(2^m)$ arithmetic (Classic McEliece \cite{bernstein2017classic}, Rainbow \cite{10.1007/11496137_12}, HQC \cite{melchor2018hamming}, and GeMSS \cite{casanova2017gemss}). 
+These algorithms require high computing power to generate the keys and encrypt/decrypt the data, 
+becoming the main bottleneck in processing for small devices.
 
 
 Traditionally, there are three ways to optimize a processor. The first solution is adding coprocessors 
@@ -28,7 +29,7 @@ This work focuses on expanding RISC-V base instructions. This paper aims to prop
 capable of accelerating any algorithm based on finite field arithmetic $GF(2^m)$, thus improving processor performance.
 
 
-The rest of the paper is organized as follows. Section 2 briefly describes the mathematical basis of $GF(2^m)$, previous works, 
+The rest of the paper is organized as follows. Section 2 describes the mathematical basis of $GF(2^m)$, previous works, 
 and contributions of this work. Section 3 presents the instruction set extension. Section 4 shows the simulations and 
 experimental results in a RISC-V SoC (SweRVolf). Finally, section 5 presents the conclusion of this work.
 
