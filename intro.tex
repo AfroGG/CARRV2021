@@ -1,0 +1,35 @@
+In recent decades, with the rise of small portable devices for applications such as the Internet of Things \cite{5579543}
+and CubeSats \cite{heidt2000cubesat}, as well as the concepts of Edge Computing \cite{7488250}, Industry 4.0 \cite{lasi2014industry}, 
+and Big Data, processors must be more efficient to execute specific operations and be able to attend the tasks with lower latency.
+
+
+The first step is to identify the algorithms that are most used in a specific application. 
+Once identified, a solution must be found to accelerate the processor, reducing the number of instructions, 
+clock cycles, and power consumption. We have identified that cryptography and communication 
+(Error Correction Codes) are present in almost any portable device today. 
+Because of this, the acceleration of finite field arithmetic $GF(2^m)$ proceeds to have a significant role. 
+It is generally used to encode and decode in a communication channel and detect errors in the transmitted data 
+(BCH, Reed-Solomon codes). It is also used in asymmetric cryptography, such as Elliptical Curve Cryptography, 
+which is extensively used in the authentication process to exchange private keys or symmetric cryptography 
+inside a secure communication channel as Advanced Encryption Standard (AES).
+
+
+Furthermore, quantum-resistant cryptography algorithms (PQC) have been developed in recent years 
+with the rise of quantum computing research. Some of the survivors of the third round of the NIST's PQC competition 
+use $GF(2^m)$ arithmetic (Classic McEliece, Rainbow, HQC, and GeMSS). These algorithms require high computing power 
+to generate the keys and encrypt/decrypt the data, becoming the main bottleneck in processing for small devices.
+
+
+Traditionally, there are three ways to optimize a processor. The first solution is adding coprocessors 
+to the system to perform those specific operations. The second is expanding the base instructions 
+of architecture. Moreover, the third solution is to make a hybrid system between the first and 
+the second solution, adding coprocessors and specific instructions depending on the case. 
+This work focuses on expanding RISC-V base instructions. This paper aims to propose a flexible instruction set 
+capable of accelerating any algorithm based on finite field arithmetic $GF(2^m)$, thus improving processor performance.
+
+
+The rest of the paper is organized as follows. Section 2 briefly describes the mathematical basis of $GF(2^m)$, previous works, 
+and contributions of this work. Section 3 presents the instruction set extension. Section 4 shows the simulations and 
+experimental results in a RISC-V SoC (SweRVolf). Finally, section 5 presents the conclusion of this work.
+
+
