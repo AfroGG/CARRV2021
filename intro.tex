@@ -23,14 +23,16 @@ becoming the main bottleneck in processing for small devices.
 
 Traditionally, there are three ways to optimize a processor. The first solution is adding coprocessors 
 to the system to perform those specific operations. The second is expanding the base instructions 
-of architecture. Moreover, the third solution is to make a hybrid system between the first and 
+of the computer architecture. Moreover, the third solution is to make a hybrid system \cite{4352011} between the first and 
 the second solution, adding coprocessors and specific instructions depending on the case. 
-This work focuses on expanding RISC-V base instructions. This paper aims to propose a flexible instruction set 
+
+
+This work aims to propose a flexible instruction set 
 capable of accelerating any algorithm based on finite field arithmetic $GF(2^m)$, thus improving processor performance.
 
 
 The rest of the paper is organized as follows. Section 2 describes the mathematical basis of $GF(2^m)$, previous works, 
-and contributions of this work. Section 3 presents the instruction set extension. Section 4 shows the simulations and 
-experimental results in a RISC-V SoC (SweRVolf). Finally, section 5 presents the conclusion of this work.
+and contributions of this work. Section 3 introduces the instruction set extension. Section 4 shows the simulations and 
+experimental results in a RISC-V SoC (SweRVolf). Finally, section 5 finishes with the conclusion of this work.
 
 
