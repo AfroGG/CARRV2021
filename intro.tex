@@ -28,10 +28,13 @@ the second solution, adding coprocessors and specific instructions depending on 
 
 
 This work aims to propose a flexible instruction set 
-capable of accelerating any algorithm based on finite field arithmetic $GF(2^m)$, thus improving processor performance.
+capable of accelerating any algorithm based on finite field arithmetic $GF(2^m)$, thus improving processor performance. A tradeoff 
+between the base instruction set and specific custom instructions can be found for applications that require high flexibility and, 
+at the same time, acceleration in the CPU execution time. For example, a portable device generally contains different error correction codes 
+and different cryptographic standards or proprietary ciphers.
 
 
-The rest of the paper is organized as follows. Section 2 describes the mathematical basis of $GF(2^m)$, previous works, 
+The rest of the paper is organized as follows. Section 2 describes the mathematical basis of $GF(2^m)$, previous related works, 
 and contributions of this work. Section 3 introduces the instruction set extension. Section 4 shows the simulations and 
 experimental results in a RISC-V SoC (SweRVolf). Finally, section 5 finishes with the conclusion of this work.
 
