@@ -5,7 +5,7 @@ and Big Data, processors must be more efficient to execute specific operations a
 
 The first step is to identify the algorithms that are most used in a specific application. 
 Once identified, a solution must be found to accelerate the processor, reducing the number of instructions, 
-clock cycles, and power consumption. We have identified that cryptography and communication 
+clock cycles, and dynamic power consumption. We have identified that cryptography and communication 
 (Error Correction Codes) are present in almost any portable device today. 
 Because of this, the acceleration of finite field arithmetic $GF(2^m)$ proceeds to have a significant role. 
 It is generally used to encode and decode in a communication channel and detect errors in the transmitted data 
@@ -31,7 +31,7 @@ This work aims to propose a flexible instruction set
 capable of accelerating any algorithm based on finite field arithmetic $GF(2^m)$, thus improving processor performance. A tradeoff 
 between the base instruction set and specific custom instructions can be found for applications that require high flexibility and, 
 at the same time, acceleration in the CPU execution time. For example, a portable device generally contains different error correction codes 
-and different cryptographic standards or proprietary ciphers.
+and cryptographic standards or proprietary ciphers.
 
 
 The rest of the paper is organized as follows. Section 2 describes the mathematical basis of $GF(2^m)$, previous related works, 

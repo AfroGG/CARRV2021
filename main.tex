@@ -68,6 +68,69 @@
 %% the next command will enable that style.
 %%\citestyle{acmauthoryear}
 
+%\usepackage[table,xcdraw]{xcolor}
+\usepackage{colortbl}
+\usepackage[ruled,vlined]{algorithm2e}
+\usepackage{graphicx,color}
+\usepackage{booktabs}
+\usepackage{listings}
+
+\lstdefinelanguage[RISC-V]{Assembler}
+{
+  alsoletter={.}, % allow dots in keywords
+  alsodigit={0x}, % hex numbers are numbers too!
+  morekeywords=[1]{ % instructions
+    lb, lh, lw, lbu, lhu,
+    sb, sh, sw,
+    sll, slli, srl, srli, sra, srai,
+    add, addi, sub, lui, auipc,
+    xor, xori, or, ori, and, andi,
+    slt, slti, sltu, sltiu,
+    beq, bne, blt, bge, bltu, bgeu,
+    j, jr, jal, jalr, ret,
+    scall, break, nop, li, ffred, ffwidth, clmul
+  },
+  morekeywords=[2]{ % sections of our code and other directives
+    .align, .ascii, .asciiz, .byte, .data, .double, .extern,
+    .float, .globl, .half, .kdata, .ktext, .set, .space, .text, .word
+  },
+  morekeywords=[3]{ % registers
+    zero, ra, sp, gp, tp, s0, fp,
+    t0, t1, t2, t3, t4, t5, t6,
+    s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11,
+    a0, a1, a2, a3, a4, a5, a6, a7,
+    ft0, ft1, ft2, ft3, ft4, ft5, ft6, ft7,
+    fs0, fs1, fs2, fs3, fs4, fs5, fs6, fs7, fs8, fs9, fs10, fs11,
+    fa0, fa1, fa2, fa3, fa4, fa5, fa6, fa7
+  },
+  morecomment=[l]{;},   % mark ; as line comment start
+  morecomment=[l]{\#},  % as well as # (even though it is unconventional)
+  morestring=[b]",      % mark " as string start/end
+  morestring=[b]'       % also mark ' as string start/end
+}
+
+% define some basic colors
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{
+  % listings sonderzeichen (for german weirdness)
+  literate={ö}{{\"o}}1
+           {ä}{{\"a}}1
+           {ü}{{\"u}}1,
+  breaklines=true,                              % break long lines
+  commentstyle=\itshape\color{green!50!black},  % comments are green
+  keywordstyle=[1]\color{blue!80!black},        % instructions are blue
+  keywordstyle=[2]\color{orange!80!black},      % sections/other directives are orange
+  keywordstyle=[3]\color{red!50!black},         % registers are red
+  stringstyle=\color{mauve},                    % strings are from the telekom
+  identifierstyle=\color{teal},                 % user declared addresses are teal
+  language=[RISC-V]Assembler,                   % all code is RISC-V
+  tabsize=4,                                    % indent tabs with 4 spaces
+  showstringspaces=false                        % do not replace spaces with weird underlines
+}
+
+\hyphenation{crypto-gra-phy cla-ssic algo-rithms algo-rithm proce-ssing accele-ra-tion ins-truction bet-ween}
+
 %%
 %% end of the preamble, start of the body of the document source.
 \begin{document}
@@ -75,7 +138,7 @@
 %%
 %% The "title" command has an optional parameter,
 %% allowing the author to define a "short title" to be used in page headers.
-\title{RISC-V ISA Extension for GF(2m) Arithmetic - Accelerating AES, RS codes and PQC algorithms on SweRV EL2}
+\title{RISC-V ISA Extension for Galois Field arithmetic}
 
 %%
 %% The "author" command and its associated commands are used to define
@@ -110,12 +173,12 @@
 %% The abstract is a short summary of the work to be presented in the
 %% article.
 \begin{abstract}
-  With the rise of Edge Computing, and the advancement of cryptography and error correction codes, 
-  portable device processors must handle a wide range of algorithms. A tradeoff between speed and area must be found to 
-  accelerate the execution time of the CPU. As $GF(2^m)$ arithmetic is the basis of many algorithms, 
+  With the rise of Edge Computing and the advancement of cryptography and error correction codes, 
+  portable device processors must handle a wide range of algorithms. A tradeoff between speed and area must be found to speed up 
+  the execution time of a general-purpose processor. As $GF(2^m)$ arithmetic is the basis of many algorithms, 
   an RISC-V instruction set extension is proposed in this work. The hardware is implemented, and the 
-  results are validated using SweRVolf SoC (SweRV EL2 1.3) on a Nexys A7 FPGA. A 5X acceleration 
-  is achieved for AES and Reed-Solomon codes at the expense of increasing the logic utilization by 7.5\%.
+  results are validated using SweRVolf SoC (SweRV EL2 1.3) on a Nexys A7 FPGA. Performance in some algorithms has been improved 
+  at the expense of a slight increase in logic utilization.
 \end{abstract}
 
 %%
@@ -181,10 +244,13 @@
 \input{back.tex}
 
 \section{Proposed ISA extension}
+\input{isa.tex}
 
-\section{Experiment results}
+\section{Implementation results}
+\input{results.tex}
 
 \section{Conclusions}
+\input{conclusion.tex}
 
 %\section{Acknowledgments}
 

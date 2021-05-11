@@ -49,7 +49,7 @@ The sum $s(x)$ (Eq. \ref{eq:4}) is directly the XOR operation of each of its coe
 \end{equation}
 
 
-\subsubsection{GF Multiplication}
+\subsubsection{GF Multiplication} \label{section:gf_mult}
 
 There are different ways to multiply two polynomials in $GF(2^m)$. This paper focuses on two-step multiplication. As its name implies, 
 this method separates multiplication into two steps: carry-less multiplication and polynomial reduction.
@@ -139,9 +139,17 @@ error-correction codes, and basic operations of classical cryptography \cite{10.
 \subsection{Contributions}
 
 With the rise of Edge Computing, IoT end-nodes \cite{8123913} and satellites \cite{8945402} must process different communication and data encryption protocols, 
-either standard protocols or proprietary. Therefore, some flexibility is required for this kind of processors.
+either standard protocols or proprietary. Therefore, some flexibility is required for this kind of processor.
 As $GF(2^m) $ arithmetic is presented in most communication systems, an extension of the RISC-V ISA is proposed in this work. 
 
-The contribution of this work is an intermediate solution between the RISC-V base ISA and the scalar cryptographic K extension \cite{zehrisc}. 
+The contribution of this work is an solution between the RISC-V base ISA and the scalar cryptographic K extension \cite{zehrisc}, resulting in an 
+intermediate performance between the two. However, with greater flexibility in the protocols that it can process. This ISA extension is capable of 
+processing the following algorithms:
+
+\begin{itemize}
+    \item Non-binary error correction codes (BCH, RS codes)
+    \item Pre-quantum cryptography (AES) 
+    \item PQC cryptography (McEliece, Rainbow, HQC, GeMSS)
+\end{itemize}
 
 
