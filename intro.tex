@@ -1,12 +1,12 @@
 In recent decades, with the rise of small portable devices for applications such as the Internet of Things \cite{5579543}
 and CubeSats \cite{heidt2000cubesat}, as well as the concepts of Edge Computing \cite{7488250}, Industry 4.0 \cite{lasi2014industry}, 
-and Big Data, processors must be more efficient to execute specific operations and be able to attend the tasks with lower latency.
+and Big Data, part of the information must be processed on the device, alleviating the network's load.
 
-
-The first step is to identify the algorithms that are most used in a specific application. 
-Once identified, a solution must be found to accelerate the processor, reducing the number of instructions, 
-clock cycles, and dynamic power consumption. We have identified that cryptography and communication 
-(Error Correction Codes) are present in almost any portable device today. 
+To achieve this goal, processors must be more efficient in executing specific operations and attending tasks with lower latency. 
+Since most portable devices have a general-purpose processor, it is not possible to run specific applications efficiently. 
+Therefore, some solutions must be found to improve its performance. One option is the customization of the processor, 
+identifying the algorithms that are most used in each case. For example, cryptography and communication 
+(Error Correction Codes) are present in almost any portable device today, and many of these algorithms are based on finite field arithmetic.  
 Because of this, the acceleration of finite field arithmetic $GF(2^m)$ proceeds to have a significant role. 
 It is generally used to encode and decode in a communication channel and detect errors in the transmitted data 
 (BCH, Reed-Solomon codes). It is also used in asymmetric cryptography, such as Elliptical Curve Cryptography, 
@@ -14,20 +14,21 @@ which is extensively used in the authentication process to exchange private keys
 inside a secure communication channel as Advanced Encryption Standard (AES).
 
 
-Furthermore, quantum-resistant cryptography algorithms (PQC) \cite{8791343} have been developed in recent years 
+Furthermore, post-quantum cryptography algorithms (PQC) \cite{8791343} have been developed in recent years 
 with the rise of quantum computing research. Some of the survivors of the third round of the NIST's PQC competition \cite{moody2016post} 
 use $GF(2^m)$ arithmetic (Classic McEliece \cite{bernstein2017classic}, Rainbow \cite{10.1007/11496137_12}, HQC \cite{melchor2018hamming}, and GeMSS \cite{casanova2017gemss}). 
 These algorithms require high computing power to generate the keys and encrypt/decrypt the data, 
-becoming the main bottleneck in processing for small devices.
+becoming the main bottleneck in processing for small devices, such as IoT end-nodes \cite{McGinthy2018} and Cubesats \cite{Maheshwarappa2017}.
 
 
 Traditionally, there are three ways to optimize a processor. The first solution is adding coprocessors 
 to the system to perform those specific operations. The second is expanding the base instructions 
 of the computer architecture. Moreover, the third solution is to make a hybrid system \cite{4352011} between the first and 
 the second solution, adding coprocessors and specific instructions depending on the case. 
+We focus on the second solution, expanding the RISC-V base instruction set (RV32I).
 
 
-This work aims to propose a flexible instruction set 
+This work aims to propose a flexible instruction set for RV32 cores
 capable of accelerating any algorithm based on finite field arithmetic $GF(2^m)$, thus improving processor performance. A tradeoff 
 between the base instruction set and specific custom instructions can be found for applications that require high flexibility and, 
 at the same time, acceleration in the CPU execution time. For example, a portable device generally contains different error correction codes 

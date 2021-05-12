@@ -36,7 +36,7 @@ Let's consider two elements of $a(x)$ and $a(x)$ (Eq. \ref{eq:3}), both belongin
 \begin{equation}
 \begin{split}
  a(x) = a_{m-1}x^{m-1} + ... + a_{1}x + a_{0}\\
- a(x) = b_{m-1}x^{m-1} + ... + b_{1}x + b_{0}\\
+ b(x) = b_{m-1}x^{m-1} + ... + b_{1}x + b_{0}\\
  a_{i} \wedge b_{i} \in GF(2), 0 \leq i \leq m-1
  \end{split}
  \label{eq:3}
@@ -44,7 +44,7 @@ Let's consider two elements of $a(x)$ and $a(x)$ (Eq. \ref{eq:3}), both belongin
 The sum $s(x)$ (Eq. \ref{eq:4}) is directly the XOR operation of each of its coefficients. The result belongs to the same field.
 
 \begin{equation}
- s(x) = (a_{m-1}\wedge b_{m-1})x^{m-1} + ... + (a_{0}\wedge b_{0})
+ s(x) = (a_{m-1} \oplus b_{m-1})x^{m-1} + ... + (a_{0} \oplus b_{0})
  \label{eq:4}
 \end{equation}
 
@@ -118,6 +118,19 @@ The matrix form of the polynomial reduction is showed in Equation \ref{eq:red}.
         \vdots \\
         d_{2m-2} \\
     \end{pmatrix}
+\end{equation}
+
+The matrix R in Equation \ref{eq:red} depends exclusively on the irreducible polynomial f(x). 
+The coefficients r can be calculated as follows:
+
+\begin{equation}
+    r_{j,i}
+    =
+    \left\{\begin{matrix}
+    f_{j};j=0,\hdots,m-1; i=0 \\ 
+    r_{j-1,i-1}+r_{m-1,i-1}; j=0,\hdots,m-1;i=1,\hdots,m-2
+\end{matrix}\right.
+    \label{eq:red2}
 \end{equation}
 
 
