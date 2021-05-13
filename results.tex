@@ -15,7 +15,9 @@ Then, the corresponding logic is added in the execution stage. Since carry-less 
 multiplication share the same module within the core, the polynomial reduction module is also implemented 
 in the same block. The block diagram of the SweRV-EL2 core is shown in Fig. \ref{fig:swerv}.
 
-Once the logic is implemented, the binutils and gdb modules of the RISC-V toolchain are modified to recognize the new instructions (Fig. \ref{fig:instr}). 
+\textcolor{blue}{Once the logic is implemented, the assembly module (binutils) is modified. Thus, the toolchain can recognize 
+the opcodes of the custom instructions. Binutils is a collection of 
+binary tools and part of the RISC-V GNU toolchain, including the assembler and the linker.}
 In this way, we can run tests of different algorithms using the C language and compare the efficiency between the RV32IMC base and custom instructions. 
 In this work, a performance evaluation for AES and Reed-Solomon codes is made.
 
@@ -35,7 +37,7 @@ Then, they were compiled with the following flags:
     \cellcolor[HTML]{FFFFFF}          & \cellcolor[HTML]{C0C0C0}Encode & \cellcolor[HTML]{C0C0C0}Decode & \cellcolor[HTML]{FFFFFF} & \cellcolor[HTML]{C0C0C0}Encode & \cellcolor[HTML]{C0C0C0}Decode \\ \hline
     \cellcolor[HTML]{EFEFEF}standard   & 154,003                         & 151,681                         &                          & 300,831                         & 303,289                         \\
     \cellcolor[HTML]{EFEFEF}out proposal    & 29,006                          & 22,648                          &                          & 58,660                          & 45,237                          \\
-    \cellcolor[HTML]{EFEFEF}Reduc. \% & 81.17                          & 85.07                          &                          & 80.50                          & 85.08                         
+    \cellcolor[HTML]{EFEFEF}Reduc. \% & 81.17\%                          & 85.07\%                          &                          & 80.50\%                          & 85.08\%                         
     \end{tabular}
     \caption{Number of clock cycles required for RS codes.}
     \label{tab:rs}
@@ -47,17 +49,17 @@ Then, they were compiled with the following flags:
     AES128                               & CBC Enc.             & CBC Dec.             & CTR Enc.             & CTR Dec.             & ECB Enc.             & ECB Dec.             \\ \hline
     \cellcolor[HTML]{EFEFEF}standard     & 197,920              & 198,240              & 198,208              & 198,197              & 50,641               & 50,726               \\
     \cellcolor[HTML]{EFEFEF}our proposal & 38,328               & 39,303               & 39,033               & 38,995               & 10,854               & 11,011               \\
-    \cellcolor[HTML]{EFEFEF}Reduc. \%    & 80.63                & 80.17                & 80.31                & 80.33                & 78.57                & 78.29                \\
+    \cellcolor[HTML]{EFEFEF}Reduc. \%    & 80.63\%                & 80.17\%                & 80.31\%                & 80.33\%                & 78.57\%                & 78.29\%                \\
     \multicolumn{1}{l}{}                 & \multicolumn{1}{l}{} & \multicolumn{1}{l}{} & \multicolumn{1}{l}{} & \multicolumn{1}{l}{} & \multicolumn{1}{l}{} & \multicolumn{1}{l}{} \\
-    \cellcolor[HTML]{C0C0C0}AES192       & CBC Enc.             & CBC Dec.             & CTR Enc.             & CTR Dec.             & ECB Enc.             & ECB Dec.             \\ \hline
+    \rowcolor[HTML]{C0C0C0}AES192       & CBC Enc.             & CBC Dec.             & CTR Enc.             & CTR Dec.             & ECB Enc.             & ECB Dec.             \\ \hline
     \cellcolor[HTML]{EFEFEF}standard     & 242,573              & 242,695              & 242,839              & 242,828              & 62,572               & 62,661               \\
     \cellcolor[HTML]{EFEFEF}our proposal & 47,016               & 48,019               & 47,637               & 47,617               & 13,764               & 13,939               \\
-    \cellcolor[HTML]{EFEFEF}Reduc. \%    & 80.62                & 80.21                & 80.38                & 80.39                & 78.00                & 77.75                \\
+    \cellcolor[HTML]{EFEFEF}Reduc. \%    & 80.62\%                & 80.21\%                & 80.38\%                & 80.39\%                & 78.00\%                & 77.75\%                \\
     \multicolumn{1}{l}{}                 & \multicolumn{1}{l}{} & \multicolumn{1}{l}{} & \multicolumn{1}{l}{} & \multicolumn{1}{l}{} & \multicolumn{1}{l}{} & \multicolumn{1}{l}{} \\
-    \cellcolor[HTML]{C0C0C0}AES256       & CBC Enc.             & CBC Dec.             & CTR Enc.             & CTR Dec.             & ECB Enc.             & ECB Dec.             \\ \hline
+    \rowcolor[HTML]{C0C0C0}AES256       & CBC Enc.             & CBC Dec.             & CTR Enc.             & CTR Dec.             & ECB Enc.             & ECB Dec.             \\ \hline
     \cellcolor[HTML]{EFEFEF}standard     & 285,245              & 285,593              & 285,439              & 285,425              & 72,331               & 72,416               \\
     \cellcolor[HTML]{EFEFEF}our proposal & 53,396               & 54,548               & 54,054               & 54,036               & 14,462               & 14,660               \\
-    \cellcolor[HTML]{EFEFEF}Reduc. \%    & 81.28                & 80.90                & 81.06                & 81.07                & 80.01                & 79.76               
+    \cellcolor[HTML]{EFEFEF}Reduc. \%    & 81.28\%                & 80.90\%                & 81.06\%                & 81.07\%                & 80.01\%                & 79.76\%               
     \end{tabular}
     \caption{Number of clock cycles required for AES (RV32IMC vs custom).}
     \label{tab:aes}
@@ -72,9 +74,9 @@ Then, they were compiled with the following flags:
     %\multicolumn{1}{l}{}            & \multicolumn{1}{l}{} & \multicolumn{1}{l}{} & \multicolumn{1}{l}{} & \multicolumn{1}{l}{} & \multicolumn{1}{l}{}           & \multicolumn{1}{l}{} & \multicolumn{1}{l}{} & \multicolumn{1}{l}{} \\
     \rowcolor[HTML]{C0C0C0} 
     SweRV-EL2                       & Slice LUTs           & Slice Registers      & F7 Muxes             & F8 Muxes             & Slice                          & LUT as logic                   \\ \hline
-    \cellcolor[HTML]{EFEFEF}standard     & 18605                & 7651                 & 341                  & 74                   & \cellcolor[HTML]{FFCE93}5329   & 18605                                   \\
-    \cellcolor[HTML]{EFEFEF}our proposal  & 19974                & 7688                 & 413                  & 80                   & \cellcolor[HTML]{FFCE93}5699   & 19974                                   \\ \hline
-    \cellcolor[HTML]{EFEFEF}Inc. \% &                      &                      &                      &                      & \cellcolor[HTML]{FFCE93}6.94\% &                                           
+    \cellcolor[HTML]{EFEFEF}standard     & 18,605                & 7651                 & 341                  & 74                   & 5,329   & 18,605                                   \\
+    \cellcolor[HTML]{EFEFEF}our proposal  & 19,974                & 7688                 & 413                  & 80                   & 5,699   & 19,974                                   \\ \hline
+    \cellcolor[HTML]{EFEFEF}Inc. \% & 7.36\%                     &    0.48\%                  & 21.11\%                     &  8.11\%                    & 6.94\% & 7.36\%                                           
     \end{tabular}
     \caption{Logic utilization of SweRV-EL2 core, implemented on a Nexys A7 FPGA.}
     \label{tab:area}

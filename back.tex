@@ -6,7 +6,7 @@ the contributions of this work are listed.
 
 In this subsection, a quick review of the concepts related to Galois Field operators is made (for more details, refer to \cite{deschamps2009hardware}), 
 focused on GF($2^m$). This field is an extension of GF(2), where the elements that make it up are zero and one. 
-All finite fields have a unit element ($\alpha^0$), a zero element ($0$), a primitive element ($\alpha$), and at least one irreducible polynomial 
+All finite fields have a unit element ($\alpha^0$), a zero element ($\alpha^{-\infty}$), a primitive element ($\alpha$), and at least one irreducible polynomial 
 $p(x) = x^m + p_{m-1}x^{m-1} + ... + p_{1}x + p_{0}$. The primitive element $\alpha$ is the root of the irreducible polynomial and 
 generates all the GF($2^m$) nonzero elements.
 
@@ -91,8 +91,8 @@ This operation can be represented in matrix form as:
 \end{equation}
 
 After the carry-less multiplication, the next step is the polynomial reduction based on an 
-irreducible polynomial f(x). In modular reduction c(x) = d(x) mod f(x), the degree of d(x) is 
-reduced by the degree of the irreducible polynomial f(x), resulting in a degree less than m – 1.
+irreducible polynomial $f(x)$. In modular reduction $c(x) = d(x) mod f(x)$, the degree of $d(x)$ is 
+reduced by the degree of the irreducible polynomial $f(x)$, resulting in a degree less than $m – 1$.
 The matrix form of the polynomial reduction is showed in Equation \ref{eq:red}.
 
 
@@ -120,8 +120,8 @@ The matrix form of the polynomial reduction is showed in Equation \ref{eq:red}.
     \end{pmatrix}
 \end{equation}
 
-The matrix R in Equation \ref{eq:red} depends exclusively on the irreducible polynomial f(x). 
-The coefficients r can be calculated as follows:
+The matrix $R$ in Equation \ref{eq:red} depends exclusively on the irreducible polynomial $f(x)$. 
+The coefficients $r$ can be calculated as follows:
 
 \begin{equation}
     r_{j,i}
@@ -151,18 +151,26 @@ error-correction codes, and basic operations of classical cryptography \cite{10.
 
 \subsection{Contributions}
 
-With the rise of Edge Computing, IoT end-nodes \cite{8123913} and satellites \cite{8945402} must process different communication and data encryption protocols, 
-either standard protocols or proprietary. Therefore, some flexibility is required for this kind of processor.
-As $GF(2^m) $ arithmetic is presented in most communication systems, an extension of the RISC-V ISA is proposed in this work. 
+%With the rise of Edge Computing, IoT end-nodes \cite{8123913} and satellites \cite{8945402} must process different communication and data encryption protocols, 
+%either standard protocols or proprietary. Therefore, some flexibility is required for this kind of processor.
+%As $GF(2^m) $ arithmetic is presented in most communication systems, an extension of the RISC-V ISA is proposed in this work. 
 
 The contribution of this work is an solution between the RISC-V base ISA and the scalar cryptographic K extension \cite{zehrisc}, resulting in an 
 intermediate performance between the two. However, with greater flexibility in the protocols that it can process. This ISA extension is capable of 
 processing the following algorithms:
 
+\begin{figure*}[tp]
+    \centering
+    \includegraphics[width=0.8\linewidth]{img/instr.png}
+    \caption{The instruction format for the custom Galois field arithmetic instructions.}
+    \Description{The instruction format for the custom Galois field arithmetic instructions.}
+    \label{fig:instr}
+\end{figure*}
+
 \begin{itemize}
-    \item Non-binary error correction codes (BCH, RS codes)
-    \item Pre-quantum cryptography (AES) 
-    \item PQC cryptography (McEliece, Rainbow, HQC, GeMSS)
+    \item \textcolor{blue}{Non-binary error-correction codes (i.e., Non-binary LDPC, BCH, RS codes, \dots)}
+    \item \textcolor{blue}{Pre-quantum cryptography (i.e., AES, Elliptic Curve, \dots)}
+    \item \textcolor{blue}{PQC cryptography (i.e., McEliece, Rainbow, HQC, \dots)}
 \end{itemize}
 
 

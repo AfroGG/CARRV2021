@@ -1,13 +1,13 @@
-\begin{figure*}[tp]
-    \centering
-    \includegraphics[width=0.8\linewidth]{img/instr.png}
-    \caption{The instruction format for the custom galois field arithmetic instructions.}
-    \Description{The instruction format for the custom galois field arithmetic instructions.}
-    \label{fig:instr}
-\end{figure*}
-
 This section describes the ISA extension for RISC-V processors proposed in this work. The selection criteria
-of the opcodes were based on the SweRV-EL2 \cite{marena2019risc} microarchitecture. 
+of the opcodes were based on the SweRV-EL2 microarchitecture \cite{marena2019risc}. 
+
+\begin{figure}[b]
+    \centering
+    \includegraphics[width=0.95\linewidth]{img/exu.png}
+    \caption{FFWIDTH internal registers.}
+    \Description{FFWIDTH internal registers.}
+    \label{fig:exu}
+\end{figure}
 
 The operation added in this extension is the multiplication of finite fields since the sum of two numbers in 
 $GF(2^m)$ is only an XOR operation, and it is already defined in RV32I. The multiplication is done in three different 
@@ -22,13 +22,6 @@ These parameters are stored in two internal registers at the input of the reduct
 In some processors, such as SweRV-EL2, carry-less multiplication is already implemented in the processor as an extension. Hence, 
 the opcode is kept for a compatibility and resource sharing issue.
 
-\begin{figure}[b]
-    \centering
-    \includegraphics[width=0.95\linewidth]{img/exu.png}
-    \caption{FFWIDTH internal registers.}
-    \Description{FFWIDTH internal registers.}
-    \label{fig:exu}
-\end{figure}
 
 We decided not to implement the square function and the inverse of $GF(2^m)$ since they are modules that require much logic 
 and can also be calculated using finite field multiplication. In more specific computers, these two instructions can be added to 
@@ -49,17 +42,25 @@ The parameters that receive and return the instructions are:
 \end{itemize}
 
 
-\begin{lstlisting}[caption={GF multiplication for AES.},captionpos=b,label={lst:aes}]
-    li	    a5, 8       % Polynomial degree
-    li	    a4,283      % Primitive poly
-    ffwidth	a5,a5,a4    
-    ...
-    lbu	    a4,0(a0)    % Operand A
-    lbu	    a7,0(a1)    % Operand B
-    clmul	a4,a4,a7    % CL multiplication
-    li	    a5,0
-    ffred	a7,a5,a4    % Reduction
-\end{lstlisting}
+%\begin{lstlisting}[caption={GF multiplication for AES.},captionpos=b,label={lst:aes}]
+%    li	    a5, 8       % Polynomial degree
+%    li	    a4,283      % Primitive poly
+%    ffwidth	a5,a5,a4    
+%    ...
+%    lbu	    a4,0(a0)    % Operand A
+%    lbu	    a7,0(a1)    % Operand B
+%    clmul	a4,a4,a7    % CL multiplication
+%    li	    a5,0
+%    ffred	a7,a5,a4    % Reduction
+%\end{lstlisting}
+
+\begin{figure}[b]
+    \centering
+    \includegraphics[width=0.95\linewidth]{img/asm.png}
+    \caption{GF multiplication for AES.}
+    \Description{GF multiplication for AES.}
+    \label{fig:asm}
+\end{figure}
 
 \begin{table*}[tp]
     \begin{tabular}{
@@ -75,11 +76,11 @@ The parameters that receive and return the instructions are:
     li                                           & 0                              & a5                                           & Load 0 in a5                          \\
     ffred                                        & a4, a5                         & a7                                           & Poly. reduction, result in a7        
     \end{tabular}
-    \caption{Detailed description of the code in Listing \ref{lst:aes} (AES example).}
+    \caption{Detailed description of the code in Fig. \ref{fig:asm} (AES example).}
     \label{tab:detail}
 \end{table*}
 
-An example of the multiplication of finite fields using the custom instructions is shown in Listing \ref{lst:aes}. 
+An example of the multiplication of finite fields using the custom instructions is shown in \textcolor{blue}{Fig.} \ref{fig:asm}. 
 This example is a part of the AES code. AES employs the following reducing polynomial for multiplication:
 \begin{equation}
     f(x) = x^{8} + x^{4} + x^{3} + x + 1
@@ -94,7 +95,7 @@ hexadecimal, or decimal form (see Eq. \ref{eq:aes2}).
 \end{equation}
 
 
-The number 283 is the value loaded in the second instruction of Listing \ref{lst:aes}, representing the primitive polynomial in base 10.
+The number 283 is the value loaded in the second instruction of Fig. \ref{fig:asm}, representing the primitive polynomial in base 10.
 
 The FFWIDTH instruction appears only for the first time to tell the hardware 
 the degree and the irreducible polynomial. These two received parameters are stored in internal registers. 
@@ -104,7 +105,7 @@ operation instruction in RISC-V. This return value is not used in any other part
 
 The register RS1 passed to FFRED is 0 because AES uses polynomials that belong to $GF(2^8)$ 
 and the bits 63-32 will always be zero after carry-less multiplication. In this case, the compiler used the instruction 
-LI assigning a logical zero to RS1 instead of using CLMULH (see Listing \ref{lst:aes}). 
+LI assigning a logical zero to RS1 instead of using CLMULH (see Fig. \ref{fig:asm}). 
 
 A detailed description of each instruction in this example can be seen in Table \ref{tab:detail}.
 

@@ -1,17 +1,17 @@
 In recent decades, with the rise of small portable devices for applications such as the Internet of Things \cite{5579543}
 and CubeSats \cite{heidt2000cubesat}, as well as the concepts of Edge Computing \cite{7488250}, Industry 4.0 \cite{lasi2014industry}, 
-and Big Data, part of the information must be processed on the device, alleviating the network's load.
+and Big Data, part of the information must be processed on the \textcolor{blue}{client} device, alleviating the network's load.
 
 To achieve this goal, processors must be more efficient in executing specific operations and attending tasks with lower latency. 
 Since most portable devices have a general-purpose processor, it is not possible to run specific applications efficiently. 
 Therefore, some solutions must be found to improve its performance. One option is the customization of the processor, 
-identifying the algorithms that are most used in each case. For example, cryptography and communication 
-(Error Correction Codes) are present in almost any portable device today, and many of these algorithms are based on finite field arithmetic.  
-Because of this, the acceleration of finite field arithmetic $GF(2^m)$ proceeds to have a significant role. 
+identifying the algorithms that are most used in each case. For example, cryptography and 
+\textcolor{blue}{error-correction codes} are present in almost any portable device today, and many of these algorithms are based on finite field arithmetic.  
+Because of this, the acceleration of finite field arithmetic $GF(2^m)$ proceeds to have a significant role \cite{8192501}. 
 It is generally used to encode and decode in a communication channel and detect errors in the transmitted data 
-(BCH, Reed-Solomon codes). It is also used in asymmetric cryptography, such as Elliptical Curve Cryptography, 
+(BCH, Reed-Solomon codes \cite{wicker1999reed}). It is also used in asymmetric cryptography, such as Elliptical Curve Cryptography \cite{washington2008elliptic}, 
 which is extensively used in the authentication process to exchange private keys or symmetric cryptography 
-inside a secure communication channel as Advanced Encryption Standard (AES).
+inside a secure communication channel as Advanced Encryption Standard (AES) \cite{heron2009advanced}.
 
 
 Furthermore, post-quantum cryptography algorithms (PQC) \cite{8791343} have been developed in recent years 
@@ -25,13 +25,13 @@ Traditionally, there are three ways to optimize a processor. The first solution 
 to the system to perform those specific operations. The second is expanding the base instructions 
 of the computer architecture. Moreover, the third solution is to make a hybrid system \cite{4352011} between the first and 
 the second solution, adding coprocessors and specific instructions depending on the case. 
-We focus on the second solution, expanding the RISC-V base instruction set (RV32I).
+We focus on the second solution, expanding the RISC-V base instruction set (RV32I) \textcolor{blue}{due to its simplicity to integrate within a core}. 
 
 
 This work aims to propose a flexible instruction set for RV32 cores
 capable of accelerating any algorithm based on finite field arithmetic $GF(2^m)$, thus improving processor performance. A tradeoff 
 between the base instruction set and specific custom instructions can be found for applications that require high flexibility and, 
-at the same time, acceleration in the CPU execution time. For example, a portable device generally contains different error correction codes 
+at the same time, acceleration in the CPU execution time. For example, a portable device generally contains different error-correction codes 
 and cryptographic standards or proprietary ciphers.
 
 
