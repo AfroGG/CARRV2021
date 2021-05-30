@@ -103,6 +103,14 @@ Additionally, this instruction receives a value in the result in a5 since the fo
 operation instruction in RISC-V. This return value is not used in any other part of the code.
 
 
+\begin{figure}[b]
+    \centering
+    \includegraphics[width=0.95\linewidth]{img/swerv.png}
+    \caption{SweRV EL2 Core Pipeline \cite{swervel2}.}
+    \Description{SweRV EL2 Core Pipeline.}
+    \label{fig:swerv}
+\end{figure}
+
 The register RS1 passed to FFRED is 0 because AES uses polynomials that belong to $GF(2^8)$ 
 and the bits 63-32 will always be zero after carry-less multiplication. In this case, the compiler used the instruction 
 LI assigning a logical zero to RS1 instead of using CLMULH (see Fig. \ref{fig:asm}). 

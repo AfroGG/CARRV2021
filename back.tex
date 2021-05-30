@@ -139,25 +139,21 @@ The coefficients $r$ can be calculated as follows:
 In this subsection, related works by other authors are presented.
 
 The RISC-V community has proposed a scalar cryptographic extension \cite{zehrisc}. This instruction set 
-is used to accelerate various cryptographic algorithms, such as AES \cite{Marshall_Newell_Page_Saarinen_Wolf_2020}, SHA-256, SHA-512, SM3, and SM4. 
-Although it achieves a considerable speedup in these algorithms, this proposal does not contemplate 
-post-quantum (PQC) algorithms and error correction codes. In this way, the instruction set is not flexible 
+accelerates various cryptographic algorithms, such as AES \cite{Marshall_Newell_Page_Saarinen_Wolf_2020}, SHA-256, SHA-512, SM3, and SM4. 
+Although it achieves a considerable speedup, this proposal does not contemplate 
+post-quantum (PQC) algorithms and error-correction codes. In this way, the instruction set is not flexible 
 and cannot accelerate other algorithms or proprietary ciphers.
 
-Many of the algorithms share the same arithmetic. For example, a finite field $GF(q)$ ISA extension 
+
+It can be observed that cryptography and error-correction codes share the same operations, such as 
+bit manipulation (i.e. rotations, permutations, carry-less multiply) and finite field arithmetic.
+These operations can be defined in the instruction set in order to accelerate a wider range of algorithms.
+For example, a finite field $GF(q)$ ISA extension 
 was proposed in Alkim's \cite{Alkim_Evkan_Lahr_Niederhagen_Petri_2020} work to accelerate lattice-based PQC 
 cryptography (Kyber, NewHope). The same can be done for the $GF(2^m)$ fields to speed up code-based PQC, 
 error-correction codes, and basic operations of classical cryptography \cite{10.1145/944645.944659}.
 
 \subsection{Contributions}
-
-%With the rise of Edge Computing, IoT end-nodes \cite{8123913} and satellites \cite{8945402} must process different communication and data encryption protocols, 
-%either standard protocols or proprietary. Therefore, some flexibility is required for this kind of processor.
-%As $GF(2^m) $ arithmetic is presented in most communication systems, an extension of the RISC-V ISA is proposed in this work. 
-
-The contribution of this work is an solution between the RISC-V base ISA and the scalar cryptographic K extension \cite{zehrisc}, resulting in an 
-intermediate performance between the two. However, with greater flexibility in the protocols that it can process. This ISA extension is capable of 
-processing the following algorithms:
 
 \begin{figure*}[tp]
     \centering
@@ -166,6 +162,18 @@ processing the following algorithms:
     \Description{The instruction format for the custom Galois field arithmetic instructions.}
     \label{fig:instr}
 \end{figure*}
+
+%With the rise of Edge Computing, IoT end-nodes \cite{8123913} and satellites \cite{8945402} must process different communication and data encryption protocols, 
+%either standard protocols or proprietary. Therefore, some flexibility is required for this kind of processor.
+%As $GF(2^m) $ arithmetic is presented in most communication systems, an extension of the RISC-V ISA is proposed in this work. 
+
+The contribution of this work is an solution between the RISC-V base ISA and the scalar cryptographic K extension \cite{zehrisc}, resulting in an 
+intermediate performance between the two. However, with greater flexibility in the protocols that it can process. 
+
+The RISC-V ISA K extension can accelerate SHA2, AES, SM3, and SM4 using dedicated instructions, and they plan to support more algorithms 
+in the future (Aria, Camelia, NIST LWC, and PQC algorithms). As this extension implements dedicated hardware for each algorithm, the execution time is faster, but the area is much larger than that of our proposal.
+
+Our proposed ISA extension is capable of processing the following algorithms:
 
 \begin{itemize}
     \item Non-binary error-correction codes (i.e., Non-binary low density parity check (LDPC), BCH, RS codes, \dots)

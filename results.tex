@@ -1,15 +1,8 @@
-\begin{figure}[b]
-    \centering
-    \includegraphics[width=0.95\linewidth]{img/swerv.png}
-    \caption{SweRV EL2 Core Pipeline \cite{swervel2}.}
-    \Description{SweRV EL2 Core Pipeline.}
-    \label{fig:swerv}
-\end{figure}
-
 The custom instructions are implemented and validated with Verilator v4.032 using the SweRV-EL2 v1.3 core.
 
 The first step is adding the logic in the decoding stage to recognize the opcode of the custom instructions. 
-Espresso logic minimizer \cite{250190} is used in this stage.
+Espresso logic minimizer \cite{250190} is used in this stage, which is a logic synthesis computer program capable 
+of reducing the complexity of digital logic circuits.
 
 Then, the corresponding logic is added in the execution stage. Since carry-less multiplication and binary 
 multiplication share the same module within the core, the polynomial reduction module is also implemented 
